@@ -85,15 +85,16 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 
 ### Supported losses:
 
-| loss                                                                   | option               		     |
+| loss                                                                   | option               		                   |
 |------------------------------------------------------------------------|-------------------------------------------|
-| L1 Loss                                                                | `L1Loss`, `l1`       		     |
-| L2 Loss                                                                | `MSELoss`, `l2`      		     |
-| Huber Loss                                                             | `HuberLoss`, `huber` 		     |
+| L1 Loss                                                                | `L1Loss`, `l1`       		                   |
+| L2 Loss                                                                | `MSELoss`, `l2`      		                   |
+| Huber Loss                                                             | `HuberLoss`, `huber` 		                   |
 | Perceptual Loss                                                        | `perceptual_opt`, `PerceptualLoss`        |
+| [Contextual Loss](https://github.com/roimehrez/contextualLoss)         | `contextual_opt`, `ContextualLoss`        |
 | GAN                                                                    | `gan_opt`, `GANLoss`, `MultiScaleGANLoss` |
 | XYZ Color Loss                                                         | `color_opt`, `colorloss`                  |
-| [LDL Loss](https://github.com/csjliang/LDL)                            | `ldl_opt`  			             |
+| [LDL Loss](https://github.com/csjliang/LDL)                            | `ldl_opt`  			                            |
 | [Focal Frequency](https://github.com/EndlessSora/focal-frequency-loss) | `ff_opt`, `focalfrequencyloss`            |
 
 ## datasets
