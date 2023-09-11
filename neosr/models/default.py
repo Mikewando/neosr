@@ -126,6 +126,12 @@ class default():
         else:
             self.cri_ff = None
 
+        # Contextual Loss
+        if train_opt.get('contextual_opt'):
+            self.cri_contextual = build_loss(train_opt['contextual_opt']).to(self.device)
+        else:
+            self.cri_contextual = None
+
         self.net_d_iters = train_opt.get('net_d_iters', 1)
         self.net_d_init_iters = train_opt.get('net_d_init_iters', 0)
 
@@ -273,6 +279,11 @@ class default():
                     l_g_ff = self.cri_ff(self.output, self.gt)
                     l_g_total += l_g_ff
                     loss_dict['l_g_ff'] = l_g_ff
+                # Contextual Loss
+                if self.cri_contextual:
+                    l_g_contextual = self.cri_contextual(self.output, self.gt)
+                    l_g_total += l_g_contextual
+                    loss_dict['l_g_contextual'] = l_g_contextual
                 if unet_attn_ms is True and self.cri_gan:
                     # a-esrgan gan loss
                     fake_g_preds = self.net_d(self.output)
