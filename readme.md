@@ -92,8 +92,8 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | Perceptual Loss                                                        | `perceptual_opt`, `PerceptualLoss`        |
 | [Contextual Loss](https://github.com/roimehrez/contextualLoss)         | `contextual_opt`, `ContextualLoss`        |
 | GAN                                                                    | `gan_opt`, `GANLoss`, `MultiScaleGANLoss` |
-| XYZ Color Loss                                                         | `color_opt`, `colorloss`                  |
-| [LDL Loss](https://github.com/csjliang/LDL)                            | `ldl_opt`  			                            |
+| YUV Color Loss                                                         | `color_opt`, `colorloss`                  |
+| [LDL Loss](https://github.com/csjliang/LDL)                            | `ldl_opt`  			             |
 | [Focal Frequency](https://github.com/EndlessSora/focal-frequency-loss) | `ff_opt`, `focalfrequencyloss`            |
 
 ## datasets
@@ -127,3 +127,6 @@ Released under the [Apache license](license.txt).
 This code was originally based on [BasicSR](https://github.com/XPixelGroup/BasicSR). See other licenses in [license/readme](license/readme.md).
 
 Thanks to [victorca25/traiNNer](https://github.com/victorca25/traiNNer), [styler00dollar/Colab-traiNNer](https://github.com/styler00dollar/Colab-traiNNer/) and [timm](https://github.com/huggingface/pytorch-image-models) for providing helpful insights into some problems.
+
+Thanks to contributors [@Phhofm](https://github.com/Phhofm), [@Sirosky](https://github.com/Sirosky) and [@terreiner](https://github.com/terrainer) for helping with tests and bug reporting. 
+
