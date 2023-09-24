@@ -1,6 +1,7 @@
 # Code from: https://github.com/zhengchen1999/DAT
 
 import math
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -15,7 +16,17 @@ from einops.layers.torch import Rearrange
 from einops import rearrange
 
 from neosr.utils.registry import ARCH_REGISTRY
+from neosr.utils.options import parse_options
 
+
+# initialize options parsing
+root_path = Path(__file__).parents[2]
+opt, args = parse_options(root_path, is_train=True)
+# set scale factor in network parameters
+upscale = opt['scale']
+# set img_size parameter
+gt_size = opt['datasets']['train']['gt_size']
+img_size = int(gt_size / upscale)
 
 
 def img2windows(img, H_sp, W_sp):
@@ -724,7 +735,7 @@ class dat(nn.Module):
         resi_connection: The convolutional block before residual connection. '1conv'/'3conv'
     """
     def __init__(self,
-                img_size=64,
+                img_size=img_size,
                 in_chans=3,
                 embed_dim=180,
                 split_size=[2,4],
@@ -739,7 +750,7 @@ class dat(nn.Module):
                 act_layer=nn.GELU,
                 norm_layer=nn.LayerNorm,
                 use_chk=False,
-                upscale=4,
+                upscale=upscale,
                 img_range=1.,
                 resi_connection='1conv',
                 upsampler='pixelshuffle',
@@ -892,7 +903,6 @@ if __name__ == '__main__':
 def dat_light(**kwargs):
     return dat(
             in_chans=3,
-            img_size=64,
             img_range=1.,
             depth=[18],
             embed_dim=60,
@@ -908,7 +918,6 @@ def dat_light(**kwargs):
 def dat_small(**kwargs):
     return dat(
             in_chans=3,
-            img_size=64,
             img_range=1.,
             split_size=[8,16],
             depth=[6,6,6,6,6,6],
@@ -923,7 +932,6 @@ def dat_small(**kwargs):
 def dat_medium(**kwargs):
     return dat(
             in_chans=3,
-            img_size=64,
             img_range=1.,
             split_size=[8,32],
             depth=[6,6,6,6,6,6],
@@ -938,7 +946,6 @@ def dat_medium(**kwargs):
 def dat_2(**kwargs):
     return dat(
             in_chans=3,
-            img_size=64,
             img_range=1.,
             split_size=[8,32],
             depth=[6,6,6,6,6,6],

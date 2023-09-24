@@ -1,15 +1,27 @@
 # Code from: https://github.com/XPixelGroup/HAT
 
 import math
+from pathlib import Path
+
 import torch
 import torch.nn as nn
 
-from neosr.archs.arch_util import to_2tuple, DropPath
 from torch.nn.init import trunc_normal_
-from neosr.utils.registry import ARCH_REGISTRY
-
 from einops import rearrange
 
+from neosr.archs.arch_util import to_2tuple, DropPath
+from neosr.utils.registry import ARCH_REGISTRY
+from neosr.utils.options import parse_options
+
+
+# initialize options parsing
+root_path = Path(__file__).parents[2]
+opt, args = parse_options(root_path, is_train=True)
+# set scale factor in network parameters
+upscale = opt['scale']
+# set img_size parameter
+gt_size = opt['datasets']['train']['gt_size']
+img_size = int(gt_size / upscale)
 
 class ChannelAttention(nn.Module):
     """Channel attention used in RCAN.
@@ -702,7 +714,7 @@ class hat(nn.Module):
     """
 
     def __init__(self,
-                 img_size=64,
+                 img_size=img_size,
                  patch_size=1,
                  in_chans=3,
                  embed_dim=96,
@@ -722,7 +734,7 @@ class hat(nn.Module):
                  norm_layer=nn.LayerNorm,
                  ape=False,
                  patch_norm=True,
-                 upscale=4,
+                 upscale=upscale,
                  img_range=1.,
                  upsampler='',
                  resi_connection='1conv',
@@ -951,7 +963,6 @@ class hat(nn.Module):
 def hat_s(**kwargs):
     return hat(
             in_chans=3,
-            img_size=64,
             window_size=16,
             compress_ratio=24,
             squeeze_factor=24,
@@ -971,7 +982,6 @@ def hat_s(**kwargs):
 def hat_m(**kwargs):
     return hat(
             in_chans=3,
-            img_size=64,
             window_size=16,
             compress_ratio=3,
             squeeze_factor=30,
@@ -991,7 +1001,6 @@ def hat_m(**kwargs):
 def hat_l(**kwargs):
     return hat(
             in_chans=3,
-            img_size=64,
             window_size=16,
             compress_ratio=3,
             squeeze_factor=30,

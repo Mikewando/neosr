@@ -1,14 +1,29 @@
 # Code from: https://github.com/HVision-NKU/SRFormer
 
 import math
+from pathlib import Path
+
 import torch
 import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
 
 import torch.nn.functional as F
 from torch.nn.init import trunc_normal_
+
 from .arch_util import to_2tuple, DropPath
 from neosr.utils.registry import ARCH_REGISTRY
+from neosr.utils.options import parse_options
+
+
+# initialize options parsing
+root_path = Path(__file__).parents[2]
+opt, args = parse_options(root_path, is_train=True)
+# set scale factor in network parameters
+upscale = opt['scale']
+# set img_size parameter
+gt_size = opt['datasets']['train']['gt_size']
+img_size = int(gt_size / upscale)
+
 
 class emptyModule(nn.Module):
     def __init__(self):
@@ -757,7 +772,7 @@ class srformer(nn.Module):
     """
 
     def __init__(self,
-                 img_size=64,
+                 img_size=img_size,
                  patch_size=1,
                  in_chans=3,
                  embed_dim=60,
@@ -774,7 +789,7 @@ class srformer(nn.Module):
                  ape=False,
                  patch_norm=True,
                  use_checkpoint=False,
-                 upscale=4,
+                 upscale=upscale,
                  img_range=1.,
                  upsampler='pixelshuffledirect',
                  resi_connection='1conv',
@@ -985,7 +1000,6 @@ class srformer(nn.Module):
 def srformer_light(**kwargs):
     return srformer(
             in_chans=3,
-            img_size=64,
             window_size=16,
             img_range=1.,
             depths=[6, 6, 6, 6],
@@ -1001,7 +1015,6 @@ def srformer_light(**kwargs):
 def srformer_medium(**kwargs):
     return srformer(
             in_chans=3,
-            img_size=48,
             window_size=24,
             img_range=1.,
             depths=[6, 6, 6, 6, 6, 6],

@@ -1,15 +1,30 @@
 # Modified from https://github.com/JingyunLiang/SwinIR
 
 import math
+from pathlib import Path
+
 import torch
 import torch.utils.checkpoint as checkpoint
+
 from torch import nn
 from torch.nn.init import trunc_normal_
+
 from .arch_util import to_2tuple, DropPath
 from neosr.utils.registry import ARCH_REGISTRY
+from neosr.utils.options import parse_options
+
+
+# initialize options parsing
+root_path = Path(__file__).parents[2]
+opt, args = parse_options(root_path, is_train=True)
+# set scale factor in network parameters
+upscale = opt['scale']
+# set img_size parameter
+gt_size = opt['datasets']['train']['gt_size']
+img_size = int(gt_size / upscale)
+
 
 class Mlp(nn.Module):
-
     def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
         super().__init__()
         out_features = out_features or in_features
@@ -722,7 +737,7 @@ class swinir(nn.Module):
     """
 
     def __init__(self,
-                 img_size=32,
+                 img_size=img_size,
                  patch_size=1,
                  in_chans=3,
                  embed_dim=60,
@@ -739,7 +754,7 @@ class swinir(nn.Module):
                  ape=False,
                  patch_norm=True,
                  use_checkpoint=False,
-                 upscale=4,
+                 upscale=upscale,
                  img_range=1.,
                  upsampler='pixelshuffle',
                  resi_connection='1conv',
@@ -971,7 +986,6 @@ if __name__ == '__main__':
 def swinir_small(**kwargs):
     return swinir(
             in_chans=3,
-            img_size=64,
             window_size=8,
             img_range=1.0,
             depths=[6, 6, 6, 6],
@@ -987,7 +1001,6 @@ def swinir_small(**kwargs):
 def swinir_medium(**kwargs):
     return swinir(
             in_chans=3,
-            img_size=48,
             window_size=8,
             img_range=1.0,
             depths=[6, 6, 6, 6, 6, 6],
