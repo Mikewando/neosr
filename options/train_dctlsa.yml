@@ -1,5 +1,5 @@
 
-name: train_mdbn
+name: train_dctlsa
 model_type: default
 scale: 4
 num_gpu: 1
@@ -49,22 +49,20 @@ path:
   resume_state: ~
 
 network_g:
-  type: mdbn
+  type: dctlsa
 
 network_d:
   type: unet
 
-#print_network: true
-
 train:
   optim_g:
     type: adamw
-    lr: !!float 2e-4
+    lr: !!float 5e-4
     weight_decay: 0
     betas: [0.9, 0.99]
   optim_d:
     type: adamw
-    lr: !!float 2e-4
+    lr: !!float 5e-4
     weight_decay: 0
     betas: [0.9, 0.99]
 

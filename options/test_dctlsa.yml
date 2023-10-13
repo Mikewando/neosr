@@ -1,5 +1,5 @@
 # Results will be saved to neosr/experiments/results/
-name: test_mdbn
+name: test_dctlsa
 model_type: default
 scale: 4
 num_gpu: 1
@@ -14,7 +14,7 @@ datasets:
       type: disk
 
 network_g:
-  type: mdbn
+  type: dctlsa
 
 path:
   pretrain_network_g: 'model.pth'
