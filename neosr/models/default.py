@@ -169,9 +169,9 @@ class default():
             for optimizer in self.optimizers:
                 self.schedulers.append(torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
                     optimizer, **train_opt['scheduler']))
-        elif scheduler_type in {'OneCycleLR', 'onecyclelr'}:
+        elif scheduler_type in {'CosineAnnealing', 'cosineannealing'}:
             for optimizer in self.optimizers:
-                self.schedulers.append(torch.optim.lr_scheduler.OneCycleLR(
+                self.schedulers.append(torch.optim.lr_scheduler.CosineAnnealingLR(
                     optimizer, **train_opt['scheduler']))
         else:
             raise NotImplementedError(
@@ -514,7 +514,7 @@ class default():
             net = net.to(self.device, non_blocking=True)
 
         if self.opt['compile'] is True:
-            net = torch.compile(net, mode="reduce-overhead") 
+            net = torch.compile(net)
 
         if self.opt['dist']:
             find_unused_parameters = self.opt.get(
@@ -601,7 +601,7 @@ class default():
                 retry -= 1
         if retry == 0:
             logger.warning(f'Still cannot save {save_path}.')
-            raise IOError(f'Cannot save {save_path}.')
+            #raise IOError(f'Cannot save {save_path}.')
 
     def save(self, epoch, current_iter):
         """Save networks and training state."""
