@@ -51,6 +51,7 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | [DAT](https://github.com/zhengchen1999/dat)                                                       | `dat_light`, `dat_small`, `dat_medium`, `dat_2` 	|
 | [DITN](https://github.com/yongliuy/DITN)							    | `ditn`				     	      	|
 | [DCTLSA](https://github.com/zengkun301/DCTLSA)						    | `dctlsa`						|
+| [SPAN](https://github.com/hongyuanyu/SPAN)							    | `span`						|
 
 ### Supported Discriminators:
 
@@ -118,6 +119,14 @@ These datasets have been tiled and manually curated across multiple sources, inc
 
 *Note: these are not intended for use in academic research*.
 
+### community datasets
+These are datasets produced by others that you may want to use with neosr. More info for most of these can be found in the [Enhance Everything discord server](https://discord.gg/cpAUpDK)
+| dataset                                                | num images        | meta_info      | download                                                                                                   | sha256          |
+|--------------------------------------------------------|-------------------|----------------|------------------------------------------------------------------------------------------------------------|-----------------|
+| [@Kim2091](https://github.com/Kim2091)'s 8k Dataset V2 | 672 (7680x4320px) | -              | [GDrive (33.5GB)](https://drive.google.com/drive/folders/1z6-UFJPciU5ysTaRXUPTfC9QrqW517G6?usp=drive_link) | -               |
+| [@Phhofm](https://github.com/Phhofm) FaceUp            | 10000 (512x512)   | -              | [GDrive (4GB)](https://drive.google.com/file/d/1WFY0siR_ERVSnE2p7ouiCfV3wQizpAKr/view)                     | -               |
+| [@Phhofm](https://github.com/Phhofm) SSDIR             | 10000 (512x512)   | -              | [Gdrive](https://drive.google.com/file/d/1FA8Q-T3xZ6_KA7SHYgoa6idIS7xpdrl4/view)                           | -               |
+
 # resources
 
 - [OpenModelDB](https://openmodeldb.info/)
@@ -136,5 +145,5 @@ This code was originally based on [BasicSR](https://github.com/XPixelGroup/Basic
 
 Thanks to [victorca25/traiNNer](https://github.com/victorca25/traiNNer), [styler00dollar/Colab-traiNNer](https://github.com/styler00dollar/Colab-traiNNer/) and [timm](https://github.com/huggingface/pytorch-image-models) for providing helpful insights into some problems.
 
-Thanks to contributors [@Phhofm](https://github.com/Phhofm), [@Sirosky](https://github.com/Sirosky) and [@terrainer](https://github.com/terrainer) for helping with tests and bug reporting. 
+Thanks to contributors [@Phhofm](https://github.com/Phhofm), [@Sirosky](https://github.com/Sirosky), [@Kim2091](https://github.com/Kim2091) and [@terrainer](https://github.com/terrainer) for helping with tests and bug reporting. 
 
