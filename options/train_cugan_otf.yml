@@ -1,5 +1,5 @@
 
-name: train_bpp_otf
+name: train_cugan_otf
 model_type: otf
 scale: 4
 num_gpu: 1
@@ -87,7 +87,7 @@ path:
   resume_state: ~
 
 network_g:
-  type: bpp
+  type: cugan
 
 network_d:
   type: unet

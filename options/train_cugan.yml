@@ -1,5 +1,5 @@
 
-name: train_bpp
+name: train_cugan
 model_type: default
 scale: 4
 num_gpu: 1
@@ -49,7 +49,7 @@ path:
   resume_state: ~
 
 network_g:
-  type: bpp
+  type: cugan
 
 network_d:
   type: unet
