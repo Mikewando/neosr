@@ -1,6 +1,6 @@
 # neosr
 
-**neosr** is a framework for training real-world single-image super-resolution networks.
+**neosr** is a framework for training real-world single-image super-resolution networks. [**wiki**](https://github.com/muslll/neosr/wiki)
 
 ## installation
 
@@ -21,11 +21,12 @@ pip install -e .
 Alternatively, use [**`poetry`**](https://python-poetry.org/docs/#installation) (*recommended on linux*):
 
 ```
-poetry install && poetry add torch@latest torchvision@latest
+poetry install
+poetry add torch@latest torchvision@latest
 ```
 Note: You must use `poetry shell` to enter the env after installation.
 
-***(optional)*** If you want to convert your models ([convert.py](convert.py)), you need to following dependencies:
+***(optional)*** If you want to convert your models ([convert.py](convert.py)), you need the following dependencies:
 
 ```
 pip install onnx onnxruntime-gpu onnxconverter-common onnxsim
@@ -66,6 +67,8 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | [DCTLSA](https://github.com/zengkun301/DCTLSA)						    | `dctlsa`						|
 | [SPAN](https://github.com/hongyuanyu/SPAN)							    | `span`						|
 | [Real-CUGAN](https://github.com/bilibili/ailab)				  		    | `cugan`			   			|
+
+For all arch-specific parameters, [read the wiki](https://github.com/muslll/neosr/wiki/Arch%E2%80%90specific-options).
 
 #### Under Testing
 
