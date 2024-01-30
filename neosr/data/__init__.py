@@ -76,7 +76,7 @@ def build_dataloader(dataset, dataset_opt, num_gpu=1, dist=False, sampler=None, 
             shuffle=False,
             num_workers=num_workers,
             sampler=sampler,
-            prefetch_factor=8,
+            prefetch_factor=None,
             drop_last=True)
         if sampler is None:
             dataloader_args['shuffle'] = True

@@ -9,7 +9,7 @@ import torch
 
 from neosr.data import build_dataloader, build_dataset
 from neosr.data.data_sampler import EnlargedSampler
-from neosr.data.prefetch_dataloader import CUDAPrefetcher
+from neosr.data.prefetch_dataloader import CUDAPrefetcher, CPUPrefetcher
 from neosr.models import build_model
 from neosr.utils import (
     AvgTimer,
@@ -206,8 +206,10 @@ def train_pipeline(root_path):
     msg_logger = MessageLogger(opt, current_iter, tb_logger)
 
     # dataloader prefetcher
-    prefetcher = CUDAPrefetcher(train_loader, opt)
-    logger.info("Using CUDA prefetch dataloader.")
+    #prefetcher = CUDAPrefetcher(train_loader, opt)
+    #logger.info("Using CUDA prefetch dataloader.")
+    prefetcher = CPUPrefetcher(train_loader)
+    logger.info("Using CPU prefetch dataloader.")
 
     if opt["use_amp"] is True:
         logger.info("AMP enabled.")
