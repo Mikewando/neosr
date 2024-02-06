@@ -217,7 +217,7 @@ class default():
         if self.opt['bfloat16'] is True:
             amp_dtype = torch.bfloat16
         
-        scaler = torch.cuda.amp.GradScaler(enabled=use_amp, init_scale=2.**11)
+        scaler = torch.cuda.amp.GradScaler(enabled=use_amp, init_scale=2.**5)
 
         with torch.autocast(device_type='cuda', dtype=amp_dtype, enabled=use_amp):
             self.output = self.net_g(self.lq)
@@ -262,6 +262,7 @@ class default():
                     l_g_contextual = self.cri_contextual(self.output, self.gt)
                     l_g_total += l_g_contextual
                     loss_dict['l_g_contextual'] = l_g_contextual
+                # GAN loss
                 if self.cri_gan:
                     fake_g_pred = self.net_d(self.output)
                     l_g_gan = self.cri_gan(fake_g_pred, True, is_disc=False)
@@ -515,6 +516,7 @@ class default():
 
         if self.opt['compile'] is True:
             net = torch.compile(net)
+            # see option fullgraph=True
 
         if self.opt['dist']:
             find_unused_parameters = self.opt.get(

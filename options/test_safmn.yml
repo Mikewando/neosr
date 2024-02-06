@@ -1,5 +1,5 @@
 # Results will be saved to neosr/experiments/results/
-name: test_edat
+name: test_safmn
 model_type: default
 scale: 4
 num_gpu: 1
@@ -15,8 +15,8 @@ datasets:
       type: disk
 
 network_g:
-  type: edat
-  #type: edat_light
+  type: safmn
+  #type: safmn_l
 
 path:
   pretrain_network_g: 'model.pth'
