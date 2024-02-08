@@ -1,15 +1,10 @@
 # neosr
 
-**neosr** is a framework for training real-world single-image super-resolution networks. 
-
-> [!TIP]
-> For more information, read the [**wiki**](https://github.com/muslll/neosr/wiki)
+**neosr** is a framework for training real-world single-image super-resolution networks. [**wiki**](https://github.com/muslll/neosr/wiki)
 
 ## installation
 
-> [!IMPORTANT]
-> Requires Python 3.11 and CUDA =>11.8.
-
+Requires Python 3.11 and CUDA =>11.8.
 Install latest [Pytorch (=>2.1) and TorchVision](https://pytorch.org/get-started/locally/) (required).
 
 Clone the repository:
@@ -80,6 +75,13 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 
 > [!NOTE]
 > For all arch-specific parameters, [read the wiki](https://github.com/muslll/neosr/wiki/Arch%E2%80%90specific-options).
+
+#### Under Testing
+
+| arch                                          | option         |
+|-----------------------------------------------|----------------|
+| [RGT](https://github.com/zhengchen1999/RGT)	| `rgt`, `rgt_s` |
+| [HADN](https://github.com/Yuii666/HADN)	| `hadn`	 |
 
 
 ### Supported Discriminators:
