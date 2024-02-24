@@ -649,6 +649,7 @@ class craft(nn.Module):
                  upscale=upscale,
                  img_range=1.,
                  resi_connection='1conv',
+                 norm=False,
                  **kwargs):
         super(craft, self).__init__()
 
@@ -665,6 +666,13 @@ class craft(nn.Module):
             self.mean = torch.Tensor(rgb_mean).view(1, 3, 1, 1)
         else:
             self.mean = torch.zeros(1, 1, 1, 1)
+
+        self.no_norm: torch.Tensor | None
+        if not norm:
+            self.register_buffer("no_norm", torch.zeros(1))
+        else:
+            self.no_norm = None
+
         self.upscale = upscale
 
         # relative position index
@@ -763,6 +771,10 @@ class craft(nn.Module):
 
         return biases_v, biases_h
 
+    @property
+    def is_norm(self):
+        return self.no_norm is None
+
     @torch.jit.ignore
     def no_weight_decay(self):
         return {'absolute_pos_embed'}
@@ -786,13 +798,15 @@ class craft(nn.Module):
 
     def forward(self, x):
         self.h, self.w = x.shape[2:]
-        self.mean = self.mean.type_as(x)
-        x = (x - self.mean) * self.img_range
+        if self.is_norm:
+            self.mean = self.mean.type_as(x)
+            x = (x - self.mean) * self.img_range
 
         x = self.conv_first(x)
         x = self.conv_after_body(self.forward_features(x)) + x
 
         x = self.upsample(x)
-        x = x / self.img_range + self.mean
+        if self.is_norm:
+            x = x / self.img_range + self.mean
         return x
 

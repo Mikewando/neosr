@@ -6,8 +6,8 @@ import os
 def main(args):
     txt_file = open(args.meta_info, 'w')
     # sca images
-    img_paths_gt = sorted(glob.glob(os.path.join(args.input[0], '*')))
-    img_paths_lq = sorted(glob.glob(os.path.join(args.input[1], '*')))
+    img_paths_gt = sorted(glob.glob(os.path.join(args.input[0], '*.png')))
+    img_paths_lq = sorted(glob.glob(os.path.join(args.input[1], '*.png')))
 
     assert len(img_paths_gt) == len(img_paths_lq), ('GT folder and LQ folder should have the same length, but got '
                                                     f'{len(img_paths_gt)} and {len(img_paths_lq)}.')

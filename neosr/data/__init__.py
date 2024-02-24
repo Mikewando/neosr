@@ -91,7 +91,7 @@ def build_dataloader(dataset, dataset_opt, num_gpu=1, dist=False, sampler=None, 
             f"Wrong dataset phase: {phase}. Supported ones are 'train', 'val' and 'test'.")
 
     dataloader_args['pin_memory'] = dataset_opt.get('pin_memory', True)
-    dataloader_args['persistent_workers'] = dataset_opt.get('persistent_workers', True)
+    dataloader_args['persistent_workers'] = dataset_opt.get('persistent_workers', False)
 
     return torch.utils.data.DataLoader(**dataloader_args)
 
