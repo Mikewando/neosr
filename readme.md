@@ -81,7 +81,6 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | arch                                          | option         |
 |-----------------------------------------------|----------------|
 | [RGT](https://github.com/zhengchen1999/RGT)	| `rgt`, `rgt_s` |
-| [HADN](https://github.com/Yuii666/HADN)	| `hadn`	 |
 
 
 ### Supported Discriminators:
@@ -120,13 +119,15 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 
 | loss                                                                   | option               		                   |
 |------------------------------------------------------------------------|-------------------------------------------|
-| L1 Loss                                                                | `L1Loss`, `l1`       		                   |
-| L2 Loss                                                                | `MSELoss`, `l2`      		                   |
-| Huber Loss                                                             | `HuberLoss`, `huber` 		                   |
+| L1 Loss                                                                | `L1Loss`, `l1`       		     |
+| L2 Loss                                                                | `MSELoss`, `l2`      		     |
+| Huber Loss                                                             | `HuberLoss`, `huber` 		     |
+| CHC (Clipped Huber with Cosine Similarity Loss)			 | `chc`, `chc_l2`			     |
 | Perceptual Loss                                                        | `perceptual_opt`, `PerceptualLoss`        |
 | [Contextual Loss](https://github.com/roimehrez/contextualLoss)         | `contextual_opt`, `ContextualLoss`        |
 | GAN                                                                    | `gan_opt`, `GANLoss`, `MultiScaleGANLoss` |
-| YUV Color Loss                                                         | `color_opt`, `colorloss`                  |
+| Y**CbCr** Color Loss (bt601)                                           | `color_opt`, `colorloss`                  |
+| Luma Loss (CIE X**Y**Z)						 | `luma_opt` `lumaloss`		     |
 | [LDL Loss](https://github.com/csjliang/LDL)                            | `ldl_opt`  			             |
 | [Focal Frequency](https://github.com/EndlessSora/focal-frequency-loss) | `ff_opt`, `focalfrequencyloss`            |
 
@@ -175,7 +176,7 @@ These are datasets made by the upscaling community. More info can be found in th
 
 # support me
 
-&#9749; Consider supporting me on [**KoFi**](https://ko-fi.com/muslll). &#9749;
+Consider supporting me on [**Patreon**](https://www.patreon.com/neosr) or [**KoFi**](https://ko-fi.com/muslll). &#9749;
 
 ## license and acknowledgements
 
@@ -184,5 +185,5 @@ This code was originally based on [BasicSR](https://github.com/XPixelGroup/Basic
 
 Thanks to [victorca25/traiNNer](https://github.com/victorca25/traiNNer), [styler00dollar/Colab-traiNNer](https://github.com/styler00dollar/Colab-traiNNer/) and [timm](https://github.com/huggingface/pytorch-image-models) for providing helpful insights into some problems.
 
-Thanks to contributors [@Phhofm](https://github.com/Phhofm), [@Sirosky](https://github.com/Sirosky), [@Kim2091](https://github.com/Kim2091) and [@terrainer](https://github.com/terrainer) for helping with tests and bug reporting. 
+Thanks to contributors [@Phhofm](https://github.com/Phhofm), [@Sirosky](https://github.com/Sirosky), [@Kim2091](https://github.com/Kim2091), [@terrainer](https://github.com/terrainer) and [@Corpsecreate](https://github.com/Corpsecreate) for helping with tests and bug reporting. 
 
