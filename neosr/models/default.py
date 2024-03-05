@@ -493,7 +493,7 @@ class default():
             if save_img:
                 if self.opt['is_train']:
                     save_img_path = osp.join(self.opt['path']['visualization'], img_name,
-                                             f'{img_name}_{current_iter}.png')
+                                             f'{img_name}_{current_iter:0.0f}.png')
                 else:
                     if self.opt['val']['suffix']:
                         save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
@@ -671,7 +671,7 @@ class default():
         """
         if current_iter == -1:
             current_iter = 'latest'
-        save_filename = f'{net_label}_{current_iter}.pth'
+        save_filename = f'{net_label}_{current_iter:0.0f}.pth'
         save_path = os.path.join(self.opt['path']['models'], save_filename)
 
         net = net if isinstance(net, list) else [net]
@@ -816,7 +816,7 @@ class default():
                 state['optimizers'].append(o.state_dict())
             for s in self.schedulers:
                 state['schedulers'].append(s.state_dict())
-            save_filename = f'{int(current_iter)}.state'
+            save_filename = f'{current_iter:0.0f}.state'
             save_path = os.path.join(
                 self.opt['path']['training_states'], save_filename)
 
