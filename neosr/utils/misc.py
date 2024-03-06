@@ -111,7 +111,7 @@ def check_resume(opt, resume_iter):
             if opt['path'].get('ignore_resume_networks') is None or (network
                                                                      not in opt['path']['ignore_resume_networks']):
                 opt['path'][name] = osp.join(
-                    opt['path']['models'], f'net_{basename}_{resume_iter}.pth')
+                    opt['path']['models'], f'net_{basename}_{resume_iter:.0f}.pth')
                 print(f"Set {name} to {opt['path'][name]}")
 
         # change param_key to params in resume
