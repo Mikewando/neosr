@@ -280,7 +280,7 @@ class default():
                         loss_dict['l_g_style'] = l_g_style
                 # ldl loss
                 if self.cri_ldl:
-                    if self.ema_decay > 0:
+                    if hasattr(self, 'output_ema'):
                         pixel_weight = get_refined_artifact_map(
                             self.gt, self.output, self.output_ema, 7)
                     else:
