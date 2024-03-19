@@ -10,6 +10,8 @@ from tqdm import tqdm
 from torch.nn.parallel import DataParallel, DistributedDataParallel
 from torch.nn import functional as F
 
+import numpy as np
+
 from neosr.archs import build_network
 from neosr.losses import build_loss
 from neosr.losses.loss_util import get_refined_artifact_map
@@ -491,17 +493,30 @@ class default():
             torch.cuda.empty_cache()
 
             if save_img:
+            #    if self.opt['is_train']:
+            #        save_img_path = osp.join(self.opt['path']['visualization'], img_name,
+            #                                 f'{img_name}_{current_iter:0.0f}.png')
+            #    else:
+            #        if self.opt['val']['suffix']:
+            #            save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
+            #                                     f'{img_name}_{self.opt["val"]["suffix"]}.png')
+            #        else:
+            #            save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
+            #                                     f'{img_name}_{self.opt["name"]}.png')
+            #    imwrite(sr_img, save_img_path)
                 if self.opt['is_train']:
                     save_img_path = osp.join(self.opt['path']['visualization'], img_name,
-                                             f'{img_name}_{current_iter:0.0f}.png')
+                                             f'{img_name}_{current_iter:0.0f}.npy')
                 else:
                     if self.opt['val']['suffix']:
                         save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
-                                                 f'{img_name}_{self.opt["val"]["suffix"]}.png')
+                                                 f'{img_name}_{self.opt["val"]["suffix"]}.npy')
                     else:
                         save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
-                                                 f'{img_name}_{self.opt["name"]}.png')
-                imwrite(sr_img, save_img_path)
+                                                 f'{img_name}_{self.opt["name"]}.npy')
+                dir_name = osp.abspath(osp.dirname(save_img_path))
+                os.makedirs(dir_name, exist_ok=True)
+                np.save(save_img_path, visuals['result'].squeeze(0), allow_pickle=False)
 
             if with_metrics:
                 # calculate metrics
