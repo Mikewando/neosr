@@ -262,9 +262,6 @@ class default():
             l_g_total = 0
             loss_dict = OrderedDict()
 
-            if self.cri_ldl and self.ema_decay > 0:
-                self.output_ema = self.net_g_ema(self.lq)
-
             if (current_iter % self.net_d_iters == 0 and current_iter > self.net_d_init_iters):
                 # pixel loss
                 if self.cri_pix:
@@ -282,12 +279,7 @@ class default():
                         loss_dict['l_g_style'] = l_g_style
                 # ldl loss
                 if self.cri_ldl:
-                    if hasattr(self, 'output_ema'):
-                        pixel_weight = get_refined_artifact_map(
-                            self.gt, self.output, self.output_ema, 7)
-                    else:
-                        pixel_weight = get_refined_artifact_map(
-                            self.gt, self.output, None, 7)
+                    pixel_weight = get_refined_artifact_map(self.gt, self.output, 7)
                     l_g_ldl = self.cri_ldl(
                         torch.mul(pixel_weight, self.output), torch.mul(pixel_weight, self.gt))
                     l_g_total += l_g_ldl
