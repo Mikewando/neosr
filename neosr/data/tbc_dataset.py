@@ -41,13 +41,12 @@ class paired_tbc(data.Dataset):
                 count=910 * 526,
                 offset=index * 910 * 526 * 2).astype(np.float32) / UINT16_MAX
             ).reshape(526, 910), 2)
-        img_lq = np.zeros((526, 910), dtype=np.float32)
-        img_lq[0::2] = top
-        img_lq[1::2] = bottom
-
         # Convert lq input. Dimension order: CHW;
         # signal range: [0, 1], float32.
-        img_lq = np.stack([img_lq[39:525:, self.active_start:self.active_end:]])
+        img_lq = np.zeros((486, self.active_end - self.active_start), dtype=np.float32)
+        img_lq[0::2] = top[19:262:, self.active_start:self.active_end:]
+        img_lq[1::2] = bottom[20::, self.active_start:self.active_end:]
+        img_lq = np.stack([img_lq])
 
         return {'lq': img_lq, 'gt': img_gt}
 
@@ -79,10 +78,10 @@ class single_tbc(data.Dataset):
                 count=910 * 526,
                 offset=self.frames[index] * 910 * 526 * 2).astype(np.float32) / UINT16_MAX
             ).reshape(526, 910), 2)
-        img_lq = np.zeros((526, 910), dtype=np.float32)
-        img_lq[0::2] = top
-        img_lq[1::2] = bottom
-        img_lq = np.stack([img_lq[39:525:, self.active_start:self.active_end:]])
+        img_lq = np.zeros((486, self.active_end - self.active_start), dtype=np.float32)
+        img_lq[0::2] = top[19:262:, self.active_start:self.active_end:]
+        img_lq[1::2] = bottom[20::, self.active_start:self.active_end:]
+        img_lq = np.stack([img_lq])
         return {'lq': img_lq, 'lq_path': str(self.lq_tbc.with_stem(f'{self.lq_tbc.stem}_frame_{self.frames[index]}'))}
 
     def __len__(self):
